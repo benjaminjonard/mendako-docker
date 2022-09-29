@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+    # Mendako
+    mendako:
+        build:
+            context: .
+            args:
+                GITHUB_RELEASE: 'main'
+        container_name: mendako
+        restart: unless-stopped
+        ports:
+            - 80:80
+        environment:
+            - DB_DRIVER=pdo_pgsql
+            - DB_NAME=mendako
+            - DB_HOST=db
+            - DB_PORT=5432
+            - DB_USER=root
+            - DB_PASSWORD=root
+            - DB_VERSION=14
+            - PHP_TZ=Europe/Paris
+            - HTTPS_ENABLED=0
+        volumes:
+            - ./volumes/mendako/conf:/conf
+            - ./volumes/mendako/uploads:/uploads
+
+    # Database : choose one of the following
+    db:
+        image: postgres:latest
+        container_name: db
+        restart: unless-stopped
+        environment:
+            - POSTGRES_DB=mendako
+            - POSTGRES_USER=root
+            - POSTGRES_PASSWORD=root
+        volumes:
+            - "./volumes/postgresql:/var/lib/postgresql/data"
