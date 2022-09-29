@@ -59,14 +59,12 @@ RUN \
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
 # Clone the repo
     mkdir -p /var/www/mendako && \
-    curl -o /tmp/mendako.tar.gz -L "https://github.com/benjaminjonard/mendako/archive/$GITHUB_RELEASE.tar.gz" && \
+    curl -o /tmp/mendako.tar.gz -L "https://github.com/benjaminjonard/mendako/archive/main.tar.gz" && \
     tar xf /tmp/mendako.tar.gz -C /var/www/mendako --strip-components=1 && \
     rm -rf /tmp/* && \
     cd /var/www/mendako && \
     composer install --no-dev --classmap-authoritative && \
     composer clearcache && \
-# Dump translation files for javascript \
-    php bin/console bazinga:js-translation:dump assets/js --format=js && \
 # Build assets \
     cd ./assets && \
     yarn --version && \
