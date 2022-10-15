@@ -59,7 +59,7 @@ RUN \
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
 # Clone the repo
     mkdir -p /var/www/mendako && \
-    curl -o /tmp/mendako.tar.gz -L "https://github.com/benjaminjonard/mendako/archive/main.tar.gz" && \
+    curl -o /tmp/mendako.tar.gz -L "https://github.com/benjaminjonard/mendako/archive/$GITHUB_RELEASE.tar.gz" && \
     tar xf /tmp/mendako.tar.gz -C /var/www/mendako --strip-components=1 && \
     rm -rf /tmp/* && \
     cd /var/www/mendako && \
